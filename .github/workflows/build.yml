@@ -24,3 +24,5 @@ jobs:
         with:
           name: ysoserial-${{ github.sha }}
           path: .\release
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'

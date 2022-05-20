@@ -7,22 +7,34 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Setup Nuget.exe
         uses: warrenbuckley/Setup-Nuget@v1
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Restore packages
         run: nuget restore ysoserial.sln
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Setup MSBuild.exe
         uses: warrenbuckley/Setup-MSBuild@v1
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Build with MSBuild
         run: msbuild ysoserial.sln -p:Configuration=Release
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Prepare build artifact for stashing
         run: |
           mkdir release
           move D:\a\ysoserial.net\ysoserial.net\ysoserial\bin\Release .\release
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
           name: ysoserial-${{ github.sha }}
           path: .\release
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
